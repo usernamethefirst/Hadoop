@@ -4,8 +4,9 @@ import java.io.IOException;
 import org.apache.hadoop.io.Text;
 
 import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableComparable;
 
-public class StringAndInt implements Comparable<StringAndInt>, Writable{
+public class StringAndInt implements WritableComparable<StringAndInt> {
 
 	Text tag;
 	int nb;

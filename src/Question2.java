@@ -20,7 +20,7 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 
 
-public class Question0_1 {
+public class Question2 {
 	public static class MyMapper extends Mapper<LongWritable, Text, Text, StringAndInt> {
 		@Override
 		protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -49,7 +49,11 @@ public class Question0_1 {
 				if (tagNb.containsKey(SaI.tag)) {
 					tagNb.put(SaI.tag, tagNb.get(SaI.tag) + SaI.nb);
 				} else {
-					tagNb.put(new Text(SaI.tag), SaI.nb);
+					
+					if (!SaI.tag.toString().equals("")){
+						tagNb.put(new Text(SaI.tag), SaI.nb);	
+					}
+					
 				}
 
 			}
@@ -75,7 +79,9 @@ public class Question0_1 {
 				if (tagNb.containsKey(SaI.tag)) {
 					tagNb.put(SaI.tag, tagNb.get(SaI.tag) + SaI.nb);
 				} else {
-					tagNb.put(new Text(SaI.tag), SaI.nb);
+					if (!SaI.tag.toString().equals("")){
+						tagNb.put(new Text(SaI.tag), SaI.nb);	
+					}
 				}
 
 			}				
@@ -101,13 +107,13 @@ public class Question0_1 {
 
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		conf.setInt("K", 10);
+		conf.setInt("K", 5);
 		String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 		String input = otherArgs[0];
 		String output = otherArgs[1];
 
-		Job job = Job.getInstance(conf, "Question0_1");
-		job.setJarByClass(Question0_1.class);
+		Job job = Job.getInstance(conf, "Question2");
+		job.setJarByClass(Question2.class);
 
 		job.setMapperClass(MyMapper.class);
 		job.setMapOutputKeyClass(Text.class);
